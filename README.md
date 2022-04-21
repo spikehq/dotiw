@@ -11,24 +11,14 @@ distance of time in words
 | more than     | 1 year 10 days to 1 year 11 months 20 days    | 1 month to 1 month 3 weeks 6 days    | 2 to 4 days    | ✅     | ✅       | ✅       | n/a|
 | less than     | 1 year 11 months 2 weeks to 1 year 11 months 3 weeks | 3 to 7 days    | 5 & 6 day    | ✅     | ✅       | ✅       | n/a|
 
-
-|               | years | months | weeks  | days  | hours   | minutes | seconds
-| ---           | ---   | ---   | ---   | ---      |---        | ---      |---   |
-| exact         | ✅    | ✅    | ✅    | ✅     | ✅       | ✅       |... |
-| about         | ✅    | ✅    | ✅    | ✅     | ✅       | ✅       |... |
-| about + 1     | ✅    | ✅    | ✅    | ✅     | ✅       | ✅       |... |
-| more than     | ✅    | ✅    | ✅    | ✅     | ✅       | ✅       | n/a|
-| less than     | ✅    | ✅    | ✅    | ✅     | ✅       | ✅       | n/a|
-
-
 Test Cases
-|               | years | months | weeks  | days  | hours   | minutes | seconds
+|               | years | months | weeks  | days  | hours (🐞)  | minutes(🐞) | seconds(🐞)
 | ---           | ---   | ---   | ---  | ---    |---      | ---      |---   |
-| exact         | ✅    | ✅    | ✅    | ...     | ...       | ...       |... |
-| about         | ✅    | ✅    | ✅    | ...     | ...       | ...       |... |
+| exact         | ✅    | ✅    | ✅    | 🐞     | ...       | ...       |... |
+| about         | ✅    | ✅    | ✅    | 🐞     | ...       | ...       |... |
 | about + 1     | ✅    | ✅    | ✅    | ...     | ...       | ...       |... |
-| more than     | ✅    | ...   | ...    | ...     | ...       | ...       | n/a|
-| less than     | ✅    | ...   | ...    | ...     | ...       | ...       | n/a|
+| more than     | ✅    | ...   | ...    | 🐞     | ...       | ...       | n/a|
+| less than     | ✅    | ...   | ...    | 🐞     | ...       | ...       | n/a|
 
 
 ## Thresholds
