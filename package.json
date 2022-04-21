@@ -1,5 +1,11 @@
 {
   "dependencies": {
     "dayjs": "^1.11.1"
+  },
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

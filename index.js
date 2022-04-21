@@ -44,54 +44,76 @@ function helper(fromDate, toDate, unit, includeSeconds=true) {
     totalSeconds = totalSeconds % 60
 
     const seconds = totalSeconds
-    // console.log(diff)
 
-    // console.log(seconds, minutes, hours, days, weeks, months, years)
-
+    const returnObject = {
+        years: years,
+        months: months,
+        weeks: weeks,
+        days: days,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
+    }
     if (years) {
         const yearController = new YearController()
         if (years === 1) {
-            return yearController.firstYear(years, months, weeks, days, hours, minutes, seconds)
+            const output = yearController.firstYear(years, months, weeks, days, hours, minutes, seconds)
+            return {...returnObject, ...output}
         } else if (years > 10 && years < 100) {
-            return yearController.decades(years, months, weeks, days, hours, minutes, seconds)
+            const output = yearController.decades(years)
+            return {...returnObject, ...output}
+        } else if (years >= 100) {
+            const output = yearController.centuries(years)
+            return {...returnObject, ...output}
         } else if (years > 1) {
-            return yearController.years(years, months, weeks, days, hours, minutes, seconds)
+            const output = yearController.years(years, months, weeks, days, hours, minutes, seconds)
+            return {...returnObject, ...output}
         }
             
     } else if (months) {
         const monthController = new MonthController()
         if (months === 1) {
-            return monthController.firstMonth(years, months, weeks, days, hours, minutes, seconds)
+            const output = monthController.firstMonth(years, months, weeks, days, hours, minutes, seconds)
+            return {...returnObject, ...output}
         } else if (months > 1) {
-            return monthController.otherMonths(years, months, weeks, days, hours, minutes, seconds)
+            const output = monthController.otherMonths(years, months, weeks, days, hours, minutes, seconds)
+            return {...returnObject, ...output}
         }
     } else if (weeks) {
         const weekController = new WeekController()
         if (weeks === 1) {
-            return weekController.firstWeek(years, months, weeks, days, hours, minutes, seconds)
+            const output = weekController.firstWeek(weeks, days, hours, minutes, seconds)
+            return {...returnObject, ...output}
         } else if (weeks > 1) {
-            return weekController.otherWeeks(years, months, weeks, days, hours, minutes, seconds)
+            const output = weekController.otherWeeks(months, weeks, days, hours, minutes, seconds)
+            return {...returnObject, ...output}
         }
     } else if (days) {
         const dayController = new DaysController()
         if (days === 1) {
-            return dayController.firstDay(years, months, weeks, days, hours, minutes, seconds)
+            const output = dayController.firstDay(days, hours, minutes, seconds)
+            return {...returnObject, ...output}
         } else if (days > 1) {
-            return dayController.otherDays(years, months, weeks, days, hours, minutes, seconds)
+            const output = dayController.otherDays(weeks, days, hours, minutes, seconds)
+            return {...returnObject, ...output}
         }
     } else if (hours) {
-        const hoursController = new HoursController
+        const hoursController = new HoursController()
         if (hours === 1) {
-            hoursController.firstHour(years, months, weeks, days, hours, minutes, seconds)
+            const output = hoursController.firstHour(hours, minutes, seconds)
+            return {...returnObject, ...output}
         } else if (hours > 1) {
-            hoursController.otherHours(years, months, weeks, days, hours, minutes, seconds)
+            const output = hoursController.otherHours(days, hours, minutes, seconds)
+            return {...returnObject, ...output}
         }
     } else if (minutes) {
         const minuteController = new MinutesController()
-        return minuteController.minutes(years, months, weeks, days, hours, minutes, seconds)
+        const output = minuteController.minutes(hours, minutes, seconds)
+        return {...returnObject, ...output}
     } else if (seconds) {
         const secondsController = new SecondsController()
-        return secondsController.seconds(years, months, weeks, days, hours, minutes, seconds)
+        const output = secondsController.seconds(seconds)
+        return {...returnObject, ...output}
     } else {
         return {
             years: years,
@@ -108,19 +130,20 @@ function helper(fromDate, toDate, unit, includeSeconds=true) {
     }
 }
 
-function distanceOfTimeInWords(from, to, unit = "second") {
-
+function distanceOfTimeInWords(from, to) {
     const fromDate = dayjs(from)
     const toDate = dayjs(to)
     
-    const diff = toDate.diff(fromDate, unit)
+    const diff = toDate.diff(fromDate)
+
+
     if (diff < 0) {
-        const result = helper(toDate,fromDate, unit)
+        const result = helper(toDate,fromDate)
         result.suffix = "ago"
         result.distance += " ago"
         return result
     } else if (diff > 0) {
-        const result = helper(fromDate, toDate, unit)
+        const result = helper(fromDate, toDate)
         if (result) {
             result.suffix = "from now"
             return result
@@ -141,30 +164,5 @@ function distanceOfTimeInWords(from, to, unit = "second") {
     }
 }
 
-// console.log(distanceOfTimeInWords("2016-12-31T23:59:59Z", "2017-01-01T00:00:00Z"))
-// console.log(distanceOfTimeInWords(new Date(), new Date()))
-// 0 seconds think about this
-
-// console.log(distanceOfTimeInWords("2017-01-01T00:00:00Z", new Date()))
-// console.log(distanceOfTimeInWords("2018-01-01T00:00:00Z", new Date()))
-// console.log(distanceOfTimeInWords(new Date(), "2023-07-29T23:59:59Z"))
-// console.log(distanceOfTimeInWords("2016-12-31T23:59:59Z", "2023-07-29T23:59:59Z"))
-// console.log(distanceOfTimeInWords(new Date(), "2023-07-29T23:59:59Z"))
-// console.log(distanceOfTimeInWords("2019-12-31T23:59:59Z", "2017-01-01T00:00:00Z"))
-
-
-// console.log(distanceOfTimeInWords("2022-01-01T00:00:00Z", "2024-01-01T00:00:00Z"))
-// console.log(distanceOfTimeInWords("2022-01-01T00:00:00Z", "2024-01-01T00:00:00Z"))
-
-
-// 15 days
-// console.log(distanceOfTimeInWords("2022-04-01T00:00:00Z", "2022-04-07T00:00:00Z"))
-// console.log(distanceOfTimeInWords("2022-01-01T00:00:00Z", "2022-01-06T05:16:00Z"))
-// change threshold for months
-
-
-// console.log(distanceOfTimeInWords("2022-04-01T00:00:00Z", "2022-05-01T00:00:00Z"))
-console.log(distanceOfTimeInWords("2022-02-01T00:00:00Z", "2022-02-22T00:00:00Z"))
-// console.log(distanceOfTimeInWords("2099-12-20T00:00:00Z", "2022-01-01T00:00:00Z"))
-
+console.log(distanceOfTimeInWords("1000-01-01 00:00:00", "2030-01-02 00:00:00"))
 module.exports = distanceOfTimeInWords

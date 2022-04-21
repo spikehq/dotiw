@@ -1,40 +1,20 @@
 class HoursController {
-    firstHour(years, months, weeks, days, hours, minutes, seconds) {
+    firstHour(hours, minutes, seconds) {
         if (minutes <= 5 && seconds <= 59) {
             return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
                 value: `${hours} hour`,
                 prefix: "",
                 distance: `${hours} hour`
             }
         } else if (minutes >= 50 && seconds <= 59) {
             return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
                 value: `${hours} hour`,
                 prefix: "about",
                 distance: `about ${hours + 1} hours`
             }
         } else if (minutes <= 50 && seconds > 59) {
             return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
+
                 value: `${hours} hour`,
                 prefix: "more than",
                 distance: `more than ${hours} hour`
@@ -42,68 +22,58 @@ class HoursController {
         }
     }
 
-    otherHours(months, weeks, days, hours, minutes, seconds) {
+    otherHours(days, hours, minutes, seconds) {
+        if (hours > 21) {
+            return {
+                value: `${days + 1} ${days + 1 === 1 ? "day" : "days"}`,
+                prefix: "about",
+                distance: `about ${days + 1} ${days + 1 === 1 ? "day" : "days"}`
+            }
+        } else if (hours <= 21 && hours >= 20 && minutes <= 59 && seconds <= 59) {
+            return {
+                value: `${days + 1} ${days + 1 === 1 ? "day" : "days"}`,
+                prefix: "less than",
+                distance: `less than ${days + 1} ${days + 1 === 1 ? "day" : "days"}`
+            }
+        }
         if (minutes <= 1 && seconds <= 59) {
             return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
+                value: `${hours} hours`,
+                prefix: "",
+                distance: `${hours} hours`
+            }
+        } else if (minutes <= 15 && seconds <= 59) {
+            return {
+                value: `${hours} hours`,
+                prefix: "about",
+                distance: `about ${hours} hours`
+            }
+        } else if (minutes <= 45 && seconds <= 59) {
+            return {
                 value: `${hours} hours`,
                 prefix: "",
                 distance: `${hours} hours`
             }
         } else if (minutes <= 5 && seconds <= 59) {
             return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
                 value: `${hours} hours`,
                 prefix: "about",
                 distance: `about ${hours} hours`
             }
-        } else if (minutes >= 50 && seconds < 55) {
+        } else if (minutes >= 50 && minutes < 55) {
             return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
-                value: `${hours} hours`,
+                value: `${hours + 1} hours`,
                 prefix: "less than",
                 distance: `less than ${hours + 1} hours`
             }
         } else if (minutes >= 54 && seconds <= 59) {
             return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
                 value: `${hours} hours`,
                 prefix: "about",
                 distance: `about ${hours + 1} hours`
             }
         } else if (minutes <= 50 && seconds > 59) {
             return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
                 value: `${hours} hours`,
                 prefix: "more than",
                 distance: `more than ${hours} hours`
