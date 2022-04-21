@@ -136,16 +136,20 @@ function distanceOfTimeInWords(from, to) {
     
     const diff = toDate.diff(fromDate)
 
-
+    if(Object.is(diff, NaN)) {
+        return "Invalid Date"
+    }
     if (diff < 0) {
         const result = helper(toDate,fromDate)
-        result.suffix = "ago"
-        result.distance += " ago"
-        return result
+        if (result) {
+            result.suffix = "ago"
+            result.distance += " ago"
+            return result
+        }
     } else if (diff > 0) {
         const result = helper(fromDate, toDate)
         if (result) {
-            result.suffix = "from now"
+            result.suffix = "later"
             return result
         }
     } else {
@@ -157,12 +161,11 @@ function distanceOfTimeInWords(from, to) {
             hours: 0,
             minutes: 0,
             seconds: 0,
-            value: "now",
+            value: "moments ago",
             prefix: "",
-            distance: "now"
+            distance: "moments ago"
         } 
     }
 }
 
-console.log(distanceOfTimeInWords("1000-01-01 00:00:00", "2030-01-02 00:00:00"))
 module.exports = distanceOfTimeInWords

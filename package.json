@@ -1,4 +1,11 @@
 {
+  "name": "dotiw",
+  "description": "DOTIW is a tool that helps to show the timestamps in words",
+  "author": {
+    "name": "Damanpreet singh",
+    "email": "dmnprt4@gmail.com"
+  },
+  "version": "1.0.0",
   "dependencies": {
     "dayjs": "^1.11.1"
   },

@@ -1,5 +1,5 @@
 class MinutesController {
-    minutes(years, months, weeks, days, hours, minutes, seconds) {
+    minutes(hours, minutes, seconds) {
         if (minutes >= 55) {
             return {
                 value: `${hours + 1} ${hours + 1 === 1 ? "hour" : "hours"}`,

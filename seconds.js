@@ -1,6 +1,6 @@
 class SecondsController {
     seconds(seconds) {
-        if (seconds < 10) {
+        if (seconds <= 10) {
             return {
                 value: `${seconds} ${seconds === 1 ? "second" : "seconds"}`,
                 prefix: "",

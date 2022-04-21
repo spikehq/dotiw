@@ -6,6 +6,12 @@ class MonthController {
                 prefix: "",
                 distance: `${months} month`
             }
+        } else if (weeks >= 2 && days >= 4 && hours < 24 && minutes <= 59 && seconds <= 59) {
+            return {
+                value: `${months + 1} months`,
+                prefix: "less than",
+                distance: `less than ${months + 1} months`
+            }
         } else if (weeks <= 1 && days < 5 && hours < 24 && minutes <= 59 && seconds <= 59) {
             return {
                 value: `${months} month`,

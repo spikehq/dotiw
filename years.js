@@ -82,7 +82,6 @@ class YearController {
         const reminder = years % 10
         let distance = `${years} ${years === 1 ? "year" : "years"}`
         let prefix = "more than"
-        console.log(reminder)
         if (reminder === 0) {
             return {
                 value: `${years} years`,
