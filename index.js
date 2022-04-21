@@ -1,4 +1,11 @@
 const dayjs = require("dayjs")
+const YearController = require('./years')
+const MonthController = require('./months')
+const WeekController = require('./weeks')
+const DaysController = require('./days')
+const HoursController = require("./hours")
+const MinutesController = require("./minutes")
+const SecondsController = require("./seconds")
 
 
 function helper(fromDate, toDate, unit, includeSeconds=true) {
@@ -6,608 +13,97 @@ function helper(fromDate, toDate, unit, includeSeconds=true) {
     toDate = dayjs(toDate)
     let diff = toDate.diff(fromDate)
 
+    let totalSeconds = Math.floor(diff / 1000)
+    let totalMinutes = Math.floor(totalSeconds / 60)
+    let totalHours = Math.floor(totalMinutes / 60)
 
-    const totalSeconds = Math.floor(diff / 1000)
-    const totalMinutes = Math.floor(totalSeconds / 60)
-    const totalHours = Math.floor(totalMinutes / 60)
-    const totalDays = Math.floor(totalHours / 24)
-    const totalWeeks = Math.floor(totalDays / 7)
-    const totalMonths = Math.floor(totalDays / 30)
-    const totalYears = Math.floor(totalDays / 365)
+    let totalDays = Math.floor(totalHours / 24)
+    
+    const years = Math.floor(totalDays / 365)
+    totalDays = totalDays % 365
+    
+    let months
+    if (totalDays < 360) {
+        months = Math.floor(totalDays / 30)
+        totalDays = totalDays % 30
+    } else {
+        months = Math.floor(totalDays / 30.417)
+        totalDays = totalDays % 30.417
+    }
 
-    const seconds = totalSeconds % 60
-    const minutes = totalMinutes % 60
-    const hours = totalHours % 24
-    const days = totalDays % 7
-    const weeks = totalWeeks % 4
-    const months = totalMonths % 12
-    const years = totalYears
+    const weeks = Math.floor(totalDays / 7)
+    totalDays = totalDays % 7
 
+    const days = Math.round(totalDays)
+    totalHours = totalHours % 24
+
+    const hours = totalHours
+    totalMinutes = totalMinutes % 60
+
+    const minutes = totalMinutes
+    totalSeconds = totalSeconds % 60
+
+    const seconds = totalSeconds
     // console.log(diff)
 
     // console.log(seconds, minutes, hours, days, weeks, months, years)
 
     if (years) {
+        const yearController = new YearController()
         if (years === 1) {
-            if (months === 0 && weeks === 0 && days === 0 && hours < 24 && minutes <= 29 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${years} year`,
-                    prefix: "",
-                    distance: `${years} year`
-                }
-            } else if (months <= 1 && weeks <= 3 && days < 10 && hours < 24 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${years} year`,
-                    prefix: "about",
-                    distance: `about a ${years} year`
-                }
-            } else if (months >= 11 && weeks >= 3 && days >= 21 && hours < 24 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${years + 1} year`,
-                    prefix: "about",
-                    distance: `about ${years + 1} years`
-                }
-            } else {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${years} year`,
-                    prefix: "more than",
-                    distance: `more than ${years} years`
-                }
-            }
+            return yearController.firstYear(years, months, weeks, days, hours, minutes, seconds)
         } else if (years > 10 && years < 100) {
-            return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
-                value: `${years} years`,
-                prefix: "about",
-                distance: `about ${years / 10} ${years / 10 === 1 ? "decade" : "decades"}`
-            }
+            return yearController.decades(years, months, weeks, days, hours, minutes, seconds)
         } else if (years > 1) {
-            if (months === 0 && weeks === 0 && days < 10 && hours < 24 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${years} years`,
-                    prefix: "about",
-                    distance: `about ${years} years`
-                }
-            } else if (months >= 11 && weeks >= 3 && days <= 10 && hours < 24 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${years + 1} years`,
-                    prefix: "about",
-                    distance: `about ${years + 1} years`
-                }
-            } else {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${years} years`,
-                    prefix: "more than",
-                    distance: `more than ${years} ${years === 1 ? "year": "years"}`
-                }
-            }
+            return yearController.years(years, months, weeks, days, hours, minutes, seconds)
         }
+            
     } else if (months) {
+        const monthController = new MonthController()
         if (months === 1) {
-            if (weeks === 0 && days === 0 && hours < 24 && minutes <= 29 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${months} month`,
-                    prefix: "",
-                    distance: `${months} month`
-                }
-            } else if (weeks <= 1 && days < 5 && hours < 24 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${months} month`,
-                    prefix: "about",
-                    distance: `about a ${months} month`
-                }
-            } else if (weeks >= 3 && days <= 6 && hours < 24 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${months + 1} month`,
-                    prefix: "about",
-                    distance: `about ${months + 1} months`
-                }
-            } else {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${months} month`,
-                    prefix: "more than",
-                    distance: `more than ${months} month`
-                }
-            }
+            return monthController.firstMonth(years, months, weeks, days, hours, minutes, seconds)
         } else if (months > 1) {
-            if (weeks === 0 && days < 5 && hours < 24 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${months} months`,
-                    prefix: "about",
-                    distance: `about ${months} months`
-                }
-            } else if (weeks >= 3 && days <= 6 && hours < 24 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${months + 1} months`,
-                    prefix: "about",
-                    distance: `about ${months + 1} months`
-                }
-            } else {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${months} months`,
-                    prefix: "more than",
-                    distance: `more than ${months} months`
-                }
-            }
+            return monthController.otherMonths(years, months, weeks, days, hours, minutes, seconds)
         }
     } else if (weeks) {
+        const weekController = new WeekController()
         if (weeks === 1) {
-            if (days === 0 && hours < 24 && minutes <= 29 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${weeks} week`,
-                    prefix: "",
-                    distance: `${weeks} week`
-                }
-            } else if (days < 2 && hours < 24 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${weeks} week`,
-                    prefix: "about",
-                    distance: `about a ${weeks} week`
-                }
-            } else if (days >= 5 && hours < 24 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${weeks + 1} week`,
-                    prefix: "about",
-                    distance: `about ${weeks + 1} weeks`
-                }
-            } else {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${weeks} week`,
-                    prefix: "more than",
-                    distance: `more than a ${weeks} week`
-                }
-            }
+            return weekController.firstWeek(years, months, weeks, days, hours, minutes, seconds)
         } else if (weeks > 1) {
-
-            if (weeks == 3 && days <= 6 && hours < 24 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${months + 1} ${months + 1 === 1 ? "month" : "months"}`,
-                    prefix: "about",
-                    distance: `about ${months + 1} ${months + 1 === 1 ? "a month" : "months"}`
-                }
-            }
-            if (days <= 2 && hours < 24 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${weeks} weeks`,
-                    prefix: "about",
-                    distance: `about ${weeks} weeks`
-                }
-            } else if (days >= 5 && hours < 24 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${weeks + 1} weeks`,
-                    prefix: "about",
-                    distance: `about ${weeks + 1} weeks`
-                }
-            } else {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${weeks} weeks`,
-                    prefix: "more than",
-                    distance: `more than ${weeks} weeks`
-                }
-            }
+            return weekController.otherWeeks(years, months, weeks, days, hours, minutes, seconds)
         }
     } else if (days) {
+        const dayController = new DaysController()
         if (days === 1) {
-            if (hours <= 3 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${days} day`,
-                    prefix: "",
-                    distance: `${days} day`
-                }
-            } else if (hours > 21 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${days} day`,
-                    prefix: "about",
-                    distance: `about a ${days + 1} days`
-                }
-            } else if (hours <= 21 && minutes > 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${days} day`,
-                    prefix: "more than",
-                    distance: `more than ${days} day`
-                }
-            }
+            return dayController.firstDay(years, months, weeks, days, hours, minutes, seconds)
         } else if (days > 1) {
-            if (hours <= 3 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${days} days`,
-                    prefix: "about",
-                    distance: `about ${days + 1} days`
-                }
-            } else if (hours > 21 && minutes <= 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${days} days`,
-                    prefix: "about",
-                    distance: `about ${days + 1} days`
-                }
-            } else if (hours <= 21 && minutes > 59 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${days} days`,
-                    prefix: "more than",
-                    distance: `more than ${days} days`
-                }
-            }
+            return dayController.otherDays(years, months, weeks, days, hours, minutes, seconds)
         }
     } else if (hours) {
+        const hoursController = new HoursController
         if (hours === 1) {
-            if (minutes <= 5 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${hours} hour`,
-                    prefix: "",
-                    distance: `${hours} hour`
-                }
-            } else if (minutes >= 50 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${hours} hour`,
-                    prefix: "about",
-                    distance: `about a ${hours + 1} hours`
-                }
-            } else if (minutes <= 50 && seconds > 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${hours} hour`,
-                    prefix: "more than",
-                    distance: `more than ${hours} hour`
-                }
-            }
+            hoursController.firstHour(years, months, weeks, days, hours, minutes, seconds)
         } else if (hours > 1) {
-            if (minutes <= 1 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${hours} hours`,
-                    prefix: "",
-                    distance: `${hours} hours`
-                }
-            } else if (minutes <= 5 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${hours} hours`,
-                    prefix: "about",
-                    distance: `about a ${hours} hours`
-                }
-            } else if (minutes >= 50 && seconds <= 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${hours} hours`,
-                    prefix: "about",
-                    distance: `about a ${hours + 1} hours`
-                }
-            } else if (minutes <= 50 && seconds > 59) {
-                return {
-                    years: years,
-                    months: months,
-                    weeks: weeks,
-                    days: days,
-                    hours: hours,
-                    minutes: minutes,
-                    seconds: seconds,
-                    value: `${hours} hours`,
-                    prefix: "more than",
-                    distance: `more than ${hours} hours`
-                }
-            }
+            hoursController.otherHours(years, months, weeks, days, hours, minutes, seconds)
         }
     } else if (minutes) {
-        if (minutes >= 55) {
-            return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
-                value: `${hours + 1} ${hours + 1 === 1 ? "hour" : "hours"}`,
-                prefix: "",
-                distance: `about ${hours + 1} ${hours + 1 === 1 ? "hour" : "hours"}`
-            }
-        } else {
-            return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
-                value: `${minutes} minutes`,
-                prefix: "",
-                distance: `${minutes} ${minutes === 1 ? "minute" : "minutes"}`
-            }
-        }
+        const minuteController = new MinutesController()
+        return minuteController.minutes(years, months, weeks, days, hours, minutes, seconds)
     } else if (seconds) {
-        if (seconds < 10) {
-            return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
-                value: `${seconds} seconds`,
-                prefix: "",
-                distance: `just now`
-            }
-        } else if (seconds < 20) {
-            return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
-                value: `${seconds} seconds`,
-                prefix: "",
-                distance: `about 20 seconds`
-            }
-        } else if (seconds < 30) {
-            return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
-                value: `${seconds} seconds`,
-                prefix: "about",
-                distance: `about 30 seconds`
-            }
-        } else if (seconds < 60) {
-            return {
-                years: years,
-                months: months,
-                weeks: weeks,
-                days: days,
-                hours: hours,
-                minutes: minutes,
-                seconds: seconds,
-                value: `${seconds} seconds`,
-                prefix: "about",
-                distance: `about a minute`
-            }
+        const secondsController = new SecondsController()
+        return secondsController.seconds(years, months, weeks, days, hours, minutes, seconds)
+    } else {
+        return {
+            years: years,
+            months: months,
+            weeks: weeks,
+            days: days,
+            hours: hours,
+            minutes: minutes,
+            seconds: seconds,
+            value: `${seconds} seconds`,
+            prefix: "",
+            distance: `${seconds} seconds`
         }
     }
 }
@@ -619,18 +115,56 @@ function distanceOfTimeInWords(from, to, unit = "second") {
     
     const diff = toDate.diff(fromDate, unit)
     if (diff < 0) {
-        const res = helper(toDate,fromDate, unit)
-        res.suffix = "ago"
-        res.distance += " ago"
-        return res
+        const result = helper(toDate,fromDate, unit)
+        result.suffix = "ago"
+        result.distance += " ago"
+        return result
+    } else if (diff > 0) {
+        const result = helper(fromDate, toDate, unit)
+        if (result) {
+            result.suffix = "from now"
+            return result
+        }
     } else {
-        return helper(fromDate, toDate, unit)
+        return {
+            years: 0,
+            months: 0,
+            weeks: 0,
+            days: 0,
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+            value: "now",
+            prefix: "",
+            distance: "now"
+        } 
     }
 }
 
-console.log(distanceOfTimeInWords("2016-12-31T23:59:59Z", "2017-01-01T00:00:00Z"))
-console.log(distanceOfTimeInWords("2017-01-01T00:00:00Z", new Date()))
-console.log(distanceOfTimeInWords(new Date(), "2023-07-29T23:59:59Z"))
-console.log(distanceOfTimeInWords("2019-12-31T23:59:59Z", "2017-01-01T00:00:00Z"))
+// console.log(distanceOfTimeInWords("2016-12-31T23:59:59Z", "2017-01-01T00:00:00Z"))
+// console.log(distanceOfTimeInWords(new Date(), new Date()))
+// 0 seconds think about this
+
+// console.log(distanceOfTimeInWords("2017-01-01T00:00:00Z", new Date()))
+// console.log(distanceOfTimeInWords("2018-01-01T00:00:00Z", new Date()))
+// console.log(distanceOfTimeInWords(new Date(), "2023-07-29T23:59:59Z"))
+// console.log(distanceOfTimeInWords("2016-12-31T23:59:59Z", "2023-07-29T23:59:59Z"))
+// console.log(distanceOfTimeInWords(new Date(), "2023-07-29T23:59:59Z"))
+// console.log(distanceOfTimeInWords("2019-12-31T23:59:59Z", "2017-01-01T00:00:00Z"))
+
+
+// console.log(distanceOfTimeInWords("2022-01-01T00:00:00Z", "2024-01-01T00:00:00Z"))
+// console.log(distanceOfTimeInWords("2022-01-01T00:00:00Z", "2024-01-01T00:00:00Z"))
+
+
+// 15 days
+// console.log(distanceOfTimeInWords("2022-04-01T00:00:00Z", "2022-04-07T00:00:00Z"))
+// console.log(distanceOfTimeInWords("2022-01-01T00:00:00Z", "2022-01-06T05:16:00Z"))
+// change threshold for months
+
+
+// console.log(distanceOfTimeInWords("2022-04-01T00:00:00Z", "2022-05-01T00:00:00Z"))
+console.log(distanceOfTimeInWords("2022-02-01T00:00:00Z", "2022-02-22T00:00:00Z"))
+// console.log(distanceOfTimeInWords("2099-12-20T00:00:00Z", "2022-01-01T00:00:00Z"))
 
 module.exports = distanceOfTimeInWords
