@@ -5,7 +5,7 @@
     "name": "Damanpreet singh",
     "email": "dmnprt4@gmail.com"
   },
-  "version": "1.0.0",
+  "version": "1.0.01",
   "dependencies": {
     "dayjs": "^1.11.1"
   },

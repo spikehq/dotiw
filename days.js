@@ -24,6 +24,12 @@ class DaysController {
                 prefix: "more than",
                 distance: `more than ${days} day`
             }
+        } else {
+            return {
+                value: `${days} day`,
+                prefix: "about",
+                distance: `about ${days} day`
+            }
         }
     }
 

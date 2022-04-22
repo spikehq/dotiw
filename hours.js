@@ -19,6 +19,12 @@ class HoursController {
                 prefix: "more than",
                 distance: `more than ${hours} hour`
             }
+        } else {
+            return {
+                value: `${hours} hour`,
+                prefix: "about",
+                distance: `about ${hours} hour`
+            }
         }
     }
 
@@ -77,6 +83,12 @@ class HoursController {
                 value: `${hours} hours`,
                 prefix: "more than",
                 distance: `more than ${hours} hours`
+            }
+        } else {
+            return {
+                value: `${hours} hours`,
+                prefix: "",
+                distance: `${hours} hours`
             }
         }
     }
