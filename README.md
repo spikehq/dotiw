@@ -45,7 +45,7 @@ DOTIW (distance of time in words) is a tool that will help you show timestamps m
 dotiw will return an object with distance as a string, user can directly use the distance stirng or the user can also use the data provided by the obect to modify the string according to their need.
 ### Years
 ```js
-const result = distanceOfTimeInWords("2021-01-01 00:00:00", "2022-01-01 00:00:00")
+const result = dotiw("2021-01-01 00:00:00", "2022-01-01 00:00:00")
 
 output => { years: 1,
             months: 0,
@@ -61,7 +61,7 @@ output => { years: 1,
 ```
 
 ```js
-const result = distanceOfTimeInWords("2019-12-15 00:00:00", "2022-01-01 00:00:00")
+const result = dotiw("2019-12-15 00:00:00", "2022-01-01 00:00:00")
 
 output => { years: 2,
             months: 0,
@@ -77,7 +77,7 @@ output => { years: 2,
 ```
 
 ```js
-const result = distanceOfTimeInWords("2025-01-01 00:00:00", "2022-01-18 00:00:00")
+const result = dotiw("2025-01-01 00:00:00", "2022-01-18 00:00:00")
 output => { years: 2,
             months: 11,
             weeks: 2,
@@ -95,7 +95,7 @@ dotiw also provides suffix and prefix according to the timestamps provided
 
 ## Months
 ```js
-const result = distanceOfTimeInWords("2022-03-01 00:00:00", "2022-01-01 00:00:00")
+const result = dotiw("2022-03-01 00:00:00", "2022-01-01 00:00:00")
 
 output => { years: 0,
             months: 1,
@@ -111,7 +111,7 @@ output => { years: 0,
 ```
 
 ```js
-const result = distanceOfTimeInWords("2022-03-01 00:00:00", "2022-01-18 00:00:00")
+const result = dotiw("2022-03-01 00:00:00", "2022-01-18 00:00:00")
 
 output => { years: 0,
             months: 1,
@@ -127,7 +127,7 @@ output => { years: 0,
 ```
 
 ```js
-const result = distanceOfTimeInWords("2022-03-01 00:00:00", "2022-01-12 00:00:00")
+const result = dotiw("2022-03-01 00:00:00", "2022-01-12 00:00:00")
 output => { years: 0,
             months: 1,
             weeks: 2,
@@ -141,7 +141,7 @@ output => { years: 0,
             suffix: 'ago' }
 ```
 ```js
-const result = distanceOfTimeInWords("2022-03-01 00:00:00", "2022-01-19 00:00:00")
+const result = dotiw("2022-03-01 00:00:00", "2022-01-19 00:00:00")
 
 output = { years: 0,
             months: 1,
@@ -158,7 +158,7 @@ output = { years: 0,
 
 # weeks
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-15 00:00:00")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-15 00:00:00")
 output => { years: 0,
             months: 0,
             weeks: 2,
@@ -173,7 +173,7 @@ output => { years: 0,
 ```
 
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-18 00:00:00")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-18 00:00:00")
 output => { years: 0,
             months: 0,
             weeks: 2,
@@ -188,7 +188,7 @@ output => { years: 0,
 ```
 
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-21 00:00:00")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-21 00:00:00")
 output => { years: 0,
             months: 0,
             weeks: 2,
@@ -203,7 +203,7 @@ output => { years: 0,
 ```
 
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-28 00:00:00")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-28 00:00:00")
 output => { years: 0,
             months: 0,
             weeks: 3,
@@ -219,7 +219,7 @@ output => { years: 0,
 
 ## Days
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-06 00:00:00")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-06 00:00:00")
 output => { years: 0,
             months: 0,
             weeks: 0,
@@ -234,7 +234,7 @@ output => { years: 0,
 ```
 
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-07 00:00:00")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-07 00:00:00")
 output => { years: 0,
             months: 0,
             weeks: 0,
@@ -249,7 +249,7 @@ output => { years: 0,
 ```
 
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-03 00:00:00")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-03 00:00:00")
 output => { years: 0,
             months: 0,
             weeks: 0,
@@ -267,7 +267,7 @@ output => { years: 0,
 ## hours
 
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-01 23:00:00")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-01 23:00:00")
 output => { years: 0,
             months: 0,
             weeks: 0,
@@ -282,7 +282,7 @@ output => { years: 0,
 ```
 
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-01 03:00:00")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-01 03:00:00")
 output => { years: 0,
             months: 0,
             weeks: 0,
@@ -301,7 +301,7 @@ output => { years: 0,
 
 
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-01 00:10:00")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-01 00:10:00")
 output => { years: 0,
             months: 0,
             weeks: 0,
@@ -316,7 +316,7 @@ output => { years: 0,
 ```
 
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-01 00:10:00")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-01 00:10:00")
 output => { years: 0,
             months: 0,
             weeks: 0,
@@ -330,7 +330,7 @@ output => { years: 0,
             suffix: 'later' }
 ```
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-01 00:50:00")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-01 00:50:00")
 output => { years: 0,
             months: 0,
             weeks: 0,
@@ -344,7 +344,7 @@ output => { years: 0,
             suffix: 'later' }
 ```
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-01 00:55:00")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-01 00:55:00")
 output => { years: 0,
             months: 0,
             weeks: 0,
@@ -362,7 +362,7 @@ output => { years: 0,
 
 dotiw will provide starting 10 seconds as it is. rest of the seconds are clubbed together
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-01 00:00:10")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-01 00:00:10")
 output => { years: 0,
             months: 0,
             weeks: 0,
@@ -378,7 +378,7 @@ output => { years: 0,
 
 10 - 20 ===> about 20 seconds, you can always cutomize the message with the values provided
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-01 00:00:17")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-01 00:00:17")
 output => { years: 0,
             months: 0,
             weeks: 0,
@@ -394,7 +394,7 @@ output => { years: 0,
 
 
 ```js
-const result = distanceOfTimeInWords("2022-01-01 00:00:00", "2022-01-01 00:00:55")
+const result = dotiw("2022-01-01 00:00:00", "2022-01-01 00:00:55")
 output => { years: 0,
             months: 0,
             weeks: 0,
