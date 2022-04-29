@@ -10,9 +10,10 @@ DOTIW (distance of time in words) helps returns relatively human readable timest
 
 ## Examples
 
-dotiw will return an object with distance as a string, user can directly use the distance stirng or the user can also use the data provided by the obect to modify the string according to their need.
-### Years
-## About 1 year
+dotiw will return an object with distance as a string, you can directly use the distance string or use the data provided by the obect to modify the string according to your need.
+
+## Years
+### About 1 year
 ```js
 const result = dotiw("2021-01-01 00:00:00", "2022-01-01 00:00:00")
 
@@ -29,7 +30,7 @@ output => { years: 1,
             suffix: 'from now' }
 ```
 
-## About 2 years
+### About x years
 ```js
 const result = dotiw("2019-12-15 00:00:00", "2022-01-01 00:00:00")
 
@@ -45,7 +46,6 @@ output => { years: 2,
             distance: 'about 2 years',
             suffix: 'later' }
 ```
-
 ```js
 const result = dotiw("2025-01-01 00:00:00", "2022-01-18 00:00:00")
 output => { years: 2,
@@ -61,9 +61,9 @@ output => { years: 2,
             suffix: 'ago' }
 ```
 
-dotiw also provides suffix and prefix according to the timestamps provided
-
 ## Months
+
+### x months
 ```js
 const result = dotiw("2022-03-01 00:00:00", "2022-01-01 00:00:00")
 
@@ -80,36 +80,7 @@ output => { years: 0,
             suffix: 'ago' }
 ```
 
-```js
-const result = dotiw("2022-03-01 00:00:00", "2022-01-18 00:00:00")
-
-output => { years: 0,
-            months: 1,
-            weeks: 1,
-            days: 5,
-            hours: 0,
-            minutes: 0,
-            seconds: 0,
-            value: '1 month',
-            prefix: 'more than',
-            distance: 'more than 1 month ago',
-            suffix: 'ago' }
-```
-
-```js
-const result = dotiw("2022-03-01 00:00:00", "2022-01-12 00:00:00")
-output => { years: 0,
-            months: 1,
-            weeks: 2,
-            days: 4,
-            hours: 0,
-            minutes: 0,
-            seconds: 0,
-            value: '2 months',
-            prefix: 'less than',
-            distance: 'less than 2 months ago',
-            suffix: 'ago' }
-```
+### About x months
 ```js
 const result = dotiw("2022-03-01 00:00:00", "2022-01-19 00:00:00")
 
@@ -126,7 +97,41 @@ output = { years: 0,
             suffix: 'ago' }
 ```
 
-# weeks
+### More than x months
+```js
+const result = dotiw("2022-03-01 00:00:00", "2022-01-18 00:00:00")
+
+output => { years: 0,
+            months: 1,
+            weeks: 1,
+            days: 5,
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+            value: '1 month',
+            prefix: 'more than',
+            distance: 'more than 1 month ago',
+            suffix: 'ago' }
+```
+
+### Less than x months
+```js
+const result = dotiw("2022-03-01 00:00:00", "2022-01-12 00:00:00")
+output => { years: 0,
+            months: 1,
+            weeks: 2,
+            days: 4,
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+            value: '2 months',
+            prefix: 'less than',
+            distance: 'less than 2 months ago',
+            suffix: 'ago' }
+```
+
+## weeks
+### x weeks
 ```js
 const result = dotiw("2022-01-01 00:00:00", "2022-01-15 00:00:00")
 output => { years: 0,
@@ -142,6 +147,7 @@ output => { years: 0,
             suffix: 'later' }
 ```
 
+### More than x weeks
 ```js
 const result = dotiw("2022-01-01 00:00:00", "2022-01-18 00:00:00")
 output => { years: 0,
@@ -157,6 +163,7 @@ output => { years: 0,
             suffix: 'later' }
 ```
 
+### About x weeks
 ```js
 const result = dotiw("2022-01-01 00:00:00", "2022-01-21 00:00:00")
 output => { years: 0,
@@ -172,6 +179,7 @@ output => { years: 0,
             suffix: 'later'}
 ```
 
+### Less than x weeks
 ```js
 const result = dotiw("2022-01-01 00:00:00", "2022-01-28 00:00:00")
 output => { years: 0,
@@ -188,6 +196,7 @@ output => { years: 0,
 ```
 
 ## Days
+### x days
 ```js
 const result = dotiw("2022-01-01 00:00:00", "2022-01-06 00:00:00")
 output => { years: 0,
@@ -203,6 +212,7 @@ output => { years: 0,
             suffix: 'later' }
 ```
 
+### About x days
 ```js
 const result = dotiw("2022-01-01 00:00:00", "2022-01-07 00:00:00")
 output => { years: 0,
@@ -269,7 +279,6 @@ output => { years: 0,
 
 ## minutes
 
-
 ```js
 const result = dotiw("2022-01-01 00:00:00", "2022-01-01 00:10:00")
 output => { years: 0,
@@ -330,7 +339,8 @@ output => { years: 0,
 
 ## Seconds
 
-dotiw will provide starting 10 seconds as it is. rest of the seconds are clubbed together
+dotiw will provide starting 10 seconds as it is. Rest of the seconds are rounded off
+
 ```js
 const result = dotiw("2022-01-01 00:00:00", "2022-01-01 00:00:10")
 output => { years: 0,

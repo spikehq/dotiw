@@ -1,11 +1,34 @@
 {
   "name": "dotiw",
-  "description": "DOTIW is a tool that helps to show the timestamps in words",
+  "description": "DOTIW (distance of time in words) helps returns relatively human readable timestamps",
+  "repository": "spikehq/dotiw",
+  "license": "MIT",
+  "type": "module",
+  "version": "1.0.1",
   "author": {
     "name": "Damanpreet singh",
     "email": "dmnprt4@gmail.com"
   },
-  "version": "1.0.01",
+  "keywords": [
+		"time",
+		"distance of time",
+		"relative time",
+		"timestamps",
+		"difference in timestamps",
+		"dayjs",
+		"moment difference",
+		"readable",
+		"readable timestamps",
+		"convert timestamps",
+    "days",
+    "months",
+    "years",
+    "seconds",
+    "minutes",
+    "hours",
+    "javascript timestamps",
+    "distance of time in words",
+	],
   "dependencies": {
     "dayjs": "^1.11.1"
   },
