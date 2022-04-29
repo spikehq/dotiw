@@ -1,37 +1,5 @@
 # DOTIW
-distance of time in words
-
-## Timelines
-
-|           | years                                                | months                            | weeks         | days | hours | minutes | seconds |
-| --------- | ---------------------------------------------------- | --------------------------------- | ------------- | ---- | ----- | ------- | ------- |
-| exact     | --                                                   | --                                | --            | ✅    | ✅     | ✅       | ...     |
-| about     | 10 days                                              | 3 days                            | 1 day         | ✅    | ✅     | ✅       | ...     |
-| about + 1 | 1 year 10 days                                       | 1 month 3 days                    | 1 week 6 days | ✅    | ✅     | ✅       | ...     |
-| more than | 1 year 10 days to 1 year 11 months 20 days           | 1 month to 1 month 3 weeks 6 days | 2 to 4 days   | ✅    | ✅     | ✅       | n/a     |
-| less than | 1 year 11 months 2 weeks to 1 year 11 months 3 weeks | 3 to 7 days                       | 5 & 6 day     | ✅    | ✅     | ✅       | n/a     |
-
-Test Cases
-|           | years | months | weeks | days | hours | minutes | seconds |
-| --------- | ----- | ------ | ----- | ---- | ----- | ---------- | ---------- |
-| exact     | ✅     | ✅      | ✅     | ✅    | ✅     | ✅          | ✅          |
-| about     | ✅     | ✅      | ✅     | ✅    | ✅     | ✅          | ✅          |
-| about + 1 | ✅     | ✅      | ✅     | ✅    | ✅     | ✅          | ✅          |
-| more than | ✅     | ✅      | ✅     | ✅    | ✅     | ✅          | n/a        |
-| less than | ✅     | ✅      | ✅     | ✅    | ✅     | ✅          | n/a        |
-
-
-## Thresholds
-|           | years | months | weeks | days | hours | minutes | seconds |
-| --------- | ----- | ------ | ----- | ---- | ----- | ------- | ------- |
-| exact     | ✅     | ✅      | ✅     | ✅    | ✅     | ✅       | ...     |
-| about     | ✅     | ✅      | ✅     | ✅    | ✅     | ✅       | ...     |
-| about + 1 | ✅     | ✅      | ✅     | ✅    | ✅     | ✅       | ...     |
-| more than | ✅     | ✅      | ✅     | ✅    | ✅     | ✅       | n/a     |
-| less than | ✅     | ✅      | ✅     | ✅    | ✅     | ✅       | n/a     |
-
-
-DOTIW (distance of time in words) is a tool that will help you show timestamps more efficiently
+DOTIW (distance of time in words) helps returns relatively human readable timestamps
 
 ## Installation
     npm i dotiw
@@ -44,6 +12,7 @@ DOTIW (distance of time in words) is a tool that will help you show timestamps m
 
 dotiw will return an object with distance as a string, user can directly use the distance stirng or the user can also use the data provided by the obect to modify the string according to their need.
 ### Years
+## About 1 year
 ```js
 const result = dotiw("2021-01-01 00:00:00", "2022-01-01 00:00:00")
 
@@ -60,6 +29,7 @@ output => { years: 1,
             suffix: 'from now' }
 ```
 
+## About 2 years
 ```js
 const result = dotiw("2019-12-15 00:00:00", "2022-01-01 00:00:00")
 
