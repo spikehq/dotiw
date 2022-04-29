@@ -4,7 +4,7 @@
   "repository": "spikehq/dotiw",
   "license": "MIT",
   "type": "module",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "author": {
     "name": "Damanpreet singh",
     "email": "dmnprt4@gmail.com"
@@ -27,7 +27,7 @@
     "minutes",
     "hours",
     "javascript timestamps",
-    "distance of time in words",
+    "distance of time in words"
 	],
   "dependencies": {
     "dayjs": "^1.11.1"
