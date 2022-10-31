@@ -3,8 +3,7 @@
   "description": "DOTIW (distance of time in words) helps returns relatively human readable timestamps",
   "repository": "spikehq/dotiw",
   "license": "MIT",
-  "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": {
     "name": "Damanpreet singh",
     "email": "dmnprt4@gmail.com"
